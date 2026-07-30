@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary-black: #000000;
+  --color-terracotta: #A84B42;
+  --color-editorial-pink: #F4BAD3;
+  --color-surface-white: #FFFFFF;
+  --color-placeholder-grey: #D9D9D9;
+  --color-text-muted: #666666;
+  --color-terracotta-hover: #8E3E37;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-inter), 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  .btn-terracotta {
+    @apply bg-archi-terracotta text-archi-white px-9 py-4 text-[13px] uppercase tracking-[0.08em] font-bold
+           hover:bg-[#8E3E37] hover:-translate-y-0.5 transition-all duration-300
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-archi-black focus-visible:ring-offset-2 focus-visible:ring-offset-archi-terracotta;
+  }
+
+  .btn-black {
+    @apply bg-archi-black text-archi-white px-10 py-5 text-lg font-bold uppercase tracking-[0.08em]
+           hover:bg-neutral-800 transition-colors duration-300
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-archi-pink focus-visible:ring-offset-2 focus-visible:ring-offset-archi-black;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-archi-black focus-visible:ring-offset-2;
+  }
+
+  .focus-ring-white {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-archi-white focus-visible:ring-offset-2 focus-visible:ring-offset-archi-black;
+  }
+
+  .focus-ring-pink {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-archi-pink focus-visible:ring-offset-2 focus-visible:ring-offset-archi-black;
+  }
+
+  /* Skip link for keyboard navigation */
+  .skip-link {
+    @apply absolute -top-10 left-4 bg-archi-black text-archi-white px-4 py-2 z-50 transition-all duration-200;
+  }
+  .skip-link:focus {
+    @apply top-4;
+  }
+}
+
+
+@media (max-width: 640px) {
+  .btn-terracotta {
+    @apply px-6 py-3 text-xs;
+  }
+
+  .btn-black {
+    @apply px-6 py-4 text-base;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-terracotta: #8E3E37;
+    --color-editorial-pink: #E8A8C0;
+    --color-text-muted: #333333;
+  }
+}
