@@ -10,6 +10,20 @@
   --color-placeholder-grey: #D9D9D9;
   --color-text-muted: #666666;
   --color-terracotta-hover: #8E3E37;
+  --accent-pro: rgb(168 75 66);
+
+  /* Scroll-hero defaults (overridden by JS via useEffect) */
+  --hero-start: 50vh;
+  --hero-space: 50vh;
+  --hero-hue: 15;
+  --hero-accent: hsl(var(--hero-hue) 80% 45%);
+  --hero-count: 6;
+  --hero-font-size-min: 14;
+  --hero-font-size-max: 20;
+  --hero-font-ratio-min: 1.1;
+  --hero-font-ratio-max: 1.33;
+  --hero-font-width-min: 375;
+  --hero-font-width-max: 1500;
 }
 
 * {
@@ -62,12 +76,10 @@ body {
   }
 }
 
-
 @media (max-width: 640px) {
   .btn-terracotta {
     @apply px-6 py-3 text-xs;
   }
-
   .btn-black {
     @apply px-6 py-4 text-base;
   }
@@ -92,4 +104,178 @@ body {
     --color-editorial-pink: #E8A8C0;
     --color-text-muted: #333333;
   }
+}
+
+/* ============================================================
+   SCROLL HERO SECTION — scoped with .hero-* classes
+   ============================================================ */
+
+/* Fluid type helper */
+.fluid-hero {
+  --fluid-min: calc(var(--hero-font-size-min) * pow(var(--hero-font-ratio-min), var(--_font-level, 0)));
+  --fluid-max: calc(var(--hero-font-size-max) * pow(var(--hero-font-ratio-max), var(--_font-level, 0)));
+  --fluid-preferred: calc(
+    (var(--fluid-max) - var(--fluid-min)) /
+    (var(--hero-font-width-max) - var(--hero-font-width-min))
+  );
+  --fluid-type: clamp(
+    calc((var(--fluid-min) / 16) * 1rem),
+    calc(
+      ((var(--fluid-min) / 16) * 1rem)
+      - (((var(--fluid-preferred) * var(--hero-font-width-min)) / 16) * 1rem)
+      + (var(--fluid-preferred) * 100vw)
+    ),
+    calc((var(--fluid-max) / 16) * 1rem)
+  );
+  font-size: var(--fluid-type);
+}
+
+/* Sticky header */
+.hero-header {
+  --_font-level: 4;
+  --hero-font-size-min: 24;
+  position: sticky;
+  top: calc((var(--hero-count) - 1) * -1lh);
+  line-height: 1.2;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: var(--hero-space);
+}
+
+.hero-header-inner {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: calc(var(--hero-start) - 0.5lh);
+}
+
+.hero-label {
+  position: sticky;
+  top: calc(var(--hero-start) - 0.5lh);
+  margin: 0;
+  font-weight: 700;
+  font-family: var(--font-syne), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #000;
+}
+
+.hero-header-inner ul {
+  font-weight: 700;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-syne), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hero-word {
+  --dimmed: color-mix(in oklch, #000, transparent 75%);
+  background: linear-gradient(
+    180deg,
+    var(--dimmed) 0 calc(var(--hero-start) - 0.5lh),
+    var(--hero-accent) calc(var(--hero-start) - 0.55lh) calc(var(--hero-start) + 0.55lh),
+    var(--dimmed) calc(var(--hero-start) + 0.5lh)
+  );
+  background-attachment: fixed;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Main reveal panel */
+.hero-main {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+.hero-main::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #000;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.hero-main-inner {
+  --_font-level: 4;
+  --hero-font-size-min: 20;
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  place-items: center;
+  padding: 4rem 2rem;
+}
+
+.hero-tagline {
+  margin: 0;
+  font-weight: 700;
+  font-family: var(--font-syne), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.hero-tagline a {
+  color: var(--hero-accent);
+  text-decoration: none;
+  text-underline-offset: 0.1em;
+}
+.hero-tagline a:hover,
+.hero-tagline a:focus-visible {
+  text-decoration: underline;
+}
+
+/* Footer */
+.hero-footer {
+  padding-block: 2rem;
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  width: 100%;
+  background: #000;
+}
+
+/* View-timeline animation (progressive enhancement, Chrome 115+) */
+@supports (animation-timeline: view()) {
+  [data-hero-animate='true'] .hero-main {
+    view-timeline: --hero-section;
+  }
+  [data-hero-animate='true'] .hero-main::before {
+    transform-origin: 50% 100%;
+    scale: 0.92;
+    animation: hero-grow both ease-in-out;
+    animation-timeline: --hero-section;
+    animation-range: entry 50%;
+  }
+  [data-hero-animate='true'] .hero-tagline {
+    position: sticky;
+    top: 50%;
+    translate: 0 -50%;
+    animation: hero-reveal both ease-in-out;
+    animation-timeline: --hero-section;
+    animation-range: entry 50%;
+  }
+  @keyframes hero-reveal {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes hero-grow {
+    to { scale: 1; border-radius: 0; }
+  }
+}
+
+/* Debug */
+[data-hero-debug='true'] .hero-word {
+  outline: 0.05em dashed currentColor;
 }

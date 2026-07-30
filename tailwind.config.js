@@ -23,6 +23,7 @@ module.exports = {
           grey: "#D9D9D9",
           muted: "#666666",
         },
+        "accent-pro": "var(--accent-pro)",
       },
       fontFamily: {
         display: ["var(--font-syne)", "Space Grotesk", "Clash Display", "sans-serif"],

@@ -7,48 +7,29 @@ export interface Course {
   thumbnail: string;
   level: string;
   duration: string;
+  description?: string;
+  modules?: string[];
 }
 
 export const courses: Course[] = [
   {
-    id: "rhino-parametric-facades",
-    slug: "rhino-parametric-facades",
-    category: "Computational Design",
-    tutor: "Elena Rostova, RIBA",
-    title: "RHINO 3D & GRASSHOPPER FOR ARCHITECTS",
-    thumbnail: "/images/courses/rhino-thumb.jpg",
-    level: "Advanced",
-    duration: "8 Weeks",
-  },
-  {
-    id: "portfolio-to-pitch",
-    slug: "portfolio-to-pitch",
-    category: "Professional Practice",
-    tutor: "Marcus Vance, AIA",
-    title: "PORTFOLIOS THAT WIN STUDIO BIDS",
-    thumbnail: "/images/courses/portfolio-thumb.jpg",
-    level: "All Levels",
-    duration: "4 Weeks",
-  },
-  {
-    id: "revit-bim-construction",
-    slug: "revit-bim-construction",
-    category: "BIM & Documentation",
-    tutor: "David Chen, Lead BIM Manager",
-    title: "REVIT FROM CONCEPT TO DETAIL",
-    thumbnail: "/images/courses/revit-thumb.jpg",
-    level: "Intermediate",
-    duration: "6 Weeks",
-  },
-  {
-    id: "environmental-site-analysis",
-    slug: "environmental-site-analysis",
-    category: "Environmental Design",
-    tutor: "Dr. Sarah Al-Mansoor",
-    title: "CLIMATE & SITE ANALYSIS WORKFLOWS",
-    thumbnail: "/images/courses/climate-thumb.jpg",
-    level: "Intermediate",
-    duration: "5 Weeks",
+    id: "learning-rhino",
+    slug: "learning-rhino",
+    category: "3D Modeling",
+    tutor: "Learn Archi",
+    title: "LEARNING RHINO: A COMPLETE CURRICULUM",
+    thumbnail: "/images/Building Image.png",
+    level: "Beginner",
+    duration: "6–10 Weeks",
+    description: "This guide breaks Rhino into six progressive modules. Each module builds on the last — don’t skip ahead to solids before curves feel automatic, and don’t touch Grasshopper before you can loft, boolean, and trim confidently by hand. A capstone project (modeling a Burj Khalifa–style tapered, twisting tower) is woven through the later modules so every new skill has an immediate, concrete use.",
+    modules: [
+      "Interface & Foundations",
+      "Curves in Depth",
+      "Surfacing",
+      "Solids & Boolean Logic",
+      "Precision, Documentation & Output",
+      "Toward Parametric Design"
+    ]
   },
 ];
 

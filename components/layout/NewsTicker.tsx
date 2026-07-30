@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-interface NewsItem {
+export interface NewsItem {
   id: string;
   tag: string;
   text: string;
@@ -10,51 +10,31 @@ interface NewsItem {
   href: string;
 }
 
-const NEWS_ALERTS: NewsItem[] = [
-  {
-    id: "01",
-    tag: "COHORT",
-    text: "Rhino 3D & Grasshopper for Advanced Geometry starts August 15th.",
-    linkText: "Register Now",
-    href: "/courses/rhino-parametric-facades",
-  },
-  {
-    id: "02",
-    tag: "COMMUNITY",
-    text: "Live spatial design portfolio critique with RIBA jurors this Friday.",
-    linkText: "Join Stream",
-    href: "#",
-  },
-  {
-    id: "03",
-    tag: "PLACEMENT",
-    text: "12 new studio internship openings added to the placement board.",
-    linkText: "View Openings",
-    href: "#",
-  },
-];
-
 interface NewsTickerProps {
   className?: string;
+  alerts: NewsItem[];
 }
 
-export default function NewsTicker({ className = "" }: NewsTickerProps) {
+export default function NewsTicker({ className = "", alerts = [] }: NewsTickerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
+    if (alerts.length === 0) return;
     const interval = setInterval(() => {
       setIsTransitioning(true);
       setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % NEWS_ALERTS.length);
+        setCurrentIndex((prev) => (prev + 1) % alerts.length);
         setIsTransitioning(false);
       }, 300); // match transition duration
     }, 6000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [alerts.length]);
 
-  const activeAlert = NEWS_ALERTS[currentIndex];
+  if (alerts.length === 0) return null;
+
+  const activeAlert = alerts[currentIndex];
 
   return (
     <div
@@ -71,7 +51,7 @@ export default function NewsTicker({ className = "" }: NewsTickerProps) {
           </span>
         </div>
         <div className="flex gap-1.5 items-center">
-          {NEWS_ALERTS.map((alert, idx) => (
+          {alerts.map((alert, idx) => (
             <button
               key={alert.id}
               onClick={() => {

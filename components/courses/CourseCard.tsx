@@ -6,6 +6,7 @@ interface CourseCardProps {
   category: string;
   tutor: string;
   title: string;
+  thumbnail?: string;
 }
 
 export default function CourseCard({
@@ -13,6 +14,7 @@ export default function CourseCard({
   category,
   tutor,
   title,
+  thumbnail,
 }: CourseCardProps) {
   return (
     <Link href={`/courses/${slug}`} className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-archi-black focus-visible:ring-offset-2">
@@ -30,7 +32,15 @@ export default function CourseCard({
           {title}
         </h3>
 
-        <div className="w-full h-64 bg-archi-grey"></div>
+        <div className="w-full h-64 bg-archi-grey relative overflow-hidden">
+          {thumbnail && (
+            <img
+              src={thumbnail}
+              alt={title}
+              className="w-full h-full object-cover"
+            />
+          )}
+        </div>
       </article>
     </Link>
   );

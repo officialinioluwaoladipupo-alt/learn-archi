@@ -23,6 +23,7 @@ export default function CoursesPage() {
                 category={course.category}
                 tutor={course.tutor}
                 title={course.title}
+                thumbnail={course.thumbnail}
               />
             ))}
           </div>

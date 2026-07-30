@@ -1,15 +1,133 @@
+"use client";
+
 import { notFound } from "next/navigation";
+import { use, useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { getCourseBySlug } from "@/lib/courses-data";
 
-export default async function CourseDetailPage({
+function PaymentModal({ onClose }: { onClose: () => void }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div
+      id="payment-modal-overlay"
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{ backgroundColor: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)" }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div
+        id="payment-modal"
+        className="relative bg-white shadow-2xl flex flex-col overflow-hidden"
+        style={{
+          width: "min(90vw, 680px)",
+          height: "min(90vh, 700px)",
+        }}
+      >
+        {/* Modal Header */}
+        <div
+          className="flex items-center justify-between px-6 py-4 border-b-2 border-archi-black shrink-0"
+          style={{ background: "#1a1a1a" }}
+        >
+          <span
+            className="font-display font-black uppercase tracking-tight text-white"
+            style={{ fontSize: "1rem", letterSpacing: "0.08em" }}
+          >
+            Complete Your Registration
+          </span>
+          <button
+            id="close-payment-modal"
+            onClick={onClose}
+            aria-label="Close payment modal"
+            className="text-white hover:text-archi-pink transition-colors"
+            style={{ fontSize: "1.5rem", lineHeight: 1, background: "none", border: "none", cursor: "pointer" }}
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Loader overlay — shown until iframe fires onLoad */}
+        {!loaded && (
+          <div
+            id="payment-loader"
+            className="absolute inset-0 flex flex-col items-center justify-center gap-6"
+            style={{ top: "57px", background: "#fdf0f5", zIndex: 10 }}
+          >
+            <p
+              className="font-display font-bold uppercase text-archi-black"
+              style={{ fontSize: "0.65rem", letterSpacing: "0.22em" }}
+            >
+              Loading Payment Page
+            </p>
+
+            {/* Bouncing dots — 3 dots with staggered delays */}
+            <div className="flex items-end gap-3">
+              {[
+                { color: "#1a1a1a", delay: "0s" },
+                { color: "#A84B42", delay: "0.2s" },
+                { color: "#F4BAD3", delay: "0.4s" },
+              ].map((dot, i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: 14,
+                    height: 14,
+                    borderRadius: "50%",
+                    background: dot.color,
+                    animationName: "archi-bounce",
+                    animationDuration: "0.9s",
+                    animationTimingFunction: "cubic-bezier(0.45, 0, 0.55, 1)",
+                    animationDelay: dot.delay,
+                    animationIterationCount: "infinite",
+                    animationDirection: "alternate",
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Keyframe styles injected inline */}
+        <style>{`
+          @keyframes archi-bounce {
+            from { transform: translateY(0px);  opacity: 1;   }
+            to   { transform: translateY(-18px); opacity: 0.5; }
+          }
+        `}</style>
+
+        {/* iframe */}
+        <div className="flex-1 relative">
+          <iframe
+            id="paystack-payment-iframe"
+            src="https://paystack.shop/pay/larhinocourse"
+            title="Register & Pay"
+            allow="payment"
+            onLoad={() => setLoaded(true)}
+            style={{
+              width: "100%",
+              height: "100%",
+              border: "none",
+              display: "block",
+              opacity: loaded ? 1 : 0,
+              transition: "opacity 0.4s ease",
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function CourseDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug } = use(params);
   const course = getCourseBySlug(slug);
+  const [showModal, setShowModal] = useState(false);
 
   if (!course) {
     notFound();
@@ -31,50 +149,25 @@ export default async function CourseDetailPage({
                 Course Outline
               </h2>
               <div className="text-body text-archi-black leading-relaxed space-y-4 sm:space-y-6">
-                <p>
-                  Master parametric modeling and algorithmic design specifically
-                  tailored for architectural façades, structural shells, and complex
-                  geometry.
-                </p>
-                <p>
-                  Over eight weeks, you will transition from fundamental NURBS
-                  surface modeling in Rhino 5/8 to generative visual programming in
-                  Grasshopper. We cover environmental radiation analysis with
-                  Ladybug, data tree manipulation, panelization strategies, and
-                  clean fabrication export for BIM integration.
-                </p>
-                <p>
-                  Whether you are designing responsive kinetic skins or preparing
-                  production drawings for complex structural curvature, this
-                  masterclass gives you the computational literacy required by
-                  world-class architecture studios.
-                </p>
-                <p>
-                  <strong>Module 1:</strong> Advanced Rhino Surface Modeling
-                </p>
-                <p>
-                  <strong>Module 2:</strong> Grasshopper Parametric Façades
-                </p>
-                <p>
-                  <strong>Module 3:</strong> Structural Integration & BIM Hand-off
-                </p>
-                <p>
-                  <strong>Module 4:</strong> Winning Architectural Pitch Deck Assembly
-                </p>
+                {course.description && (
+                  <p>{course.description}</p>
+                )}
+                {course.modules && course.modules.map((module, idx) => (
+                  <p key={idx}>
+                    <strong>Module {idx + 1}:</strong> {module}
+                  </p>
+                ))}
               </div>
             </div>
 
             <div className="md:col-span-7">
-              <div className="relative w-full aspect-video bg-archi-black shadow-lg">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <button
-                    className="w-16 sm:w-20 h-16 sm:h-20 bg-archi-white rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
-                    aria-label="Play video"
-                  >
-                    <div className="w-0 h-0 border-t-8 sm:border-t-10 border-t-transparent border-l-12 sm:border-l-15 border-l-archi-black border-b-8 sm:border-b-10 border-b-transparent ml-2" />
-                  </button>
-                </div>
-              </div>
+              {course.thumbnail && (
+                <img
+                  src={course.thumbnail}
+                  alt={course.title}
+                  className="w-full h-auto shadow-lg"
+                />
+              )}
             </div>
           </div>
 
@@ -85,16 +178,19 @@ export default async function CourseDetailPage({
             >
               DOWNLOAD BROCHURE
             </a>
-            <a
-              href="#"
+            <button
+              id="register-btn"
+              onClick={() => setShowModal(true)}
               className="btn-black w-full sm:w-auto text-center"
             >
               REGISTER HERE
-            </a>
+            </button>
           </div>
         </div>
       </main>
       <Footer />
+
+      {showModal && <PaymentModal onClose={() => setShowModal(false)} />}
     </>
   );
 }

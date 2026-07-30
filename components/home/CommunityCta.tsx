@@ -1,14 +1,17 @@
+import SectionCta from "@/components/ui/section-cta";
+
 export default function CommunityCta() {
   return (
     <section className="bg-archi-pink py-16 sm:py-20 md:py-24 px-4 sm:px-8 md:px-16 lg:px-20">
       <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
         <div className="w-full md:w-auto">
-          <a
+          <SectionCta
             href="#"
-            className="btn-terracotta inline-block w-full md:w-auto text-center"
-          >
-            JOIN HERE
-          </a>
+            label="JOIN HERE"
+            variant="accent"
+            size="lg"
+            className="w-full md:w-auto text-center"
+          />
         </div>
 
         <div className="w-full md:w-auto text-right">

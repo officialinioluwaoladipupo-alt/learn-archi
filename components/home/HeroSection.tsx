@@ -1,5 +1,15 @@
 import Header from "@/components/layout/Header";
-import NewsTicker from "@/components/layout/NewsTicker";
+import NewsTicker, { NewsItem } from "@/components/layout/NewsTicker";
+
+const HOME_ALERTS: NewsItem[] = [
+  {
+    id: "01",
+    tag: "NEW COURSE",
+    text: "Learning Rhino: A Complete Curriculum is now live! From First Curve to Complex Tower Geometry.",
+    linkText: "View Course",
+    href: "/courses/learning-rhino",
+  },
+];
 
 export default function HeroSection() {
   return (
@@ -8,7 +18,7 @@ export default function HeroSection() {
 
       <div className="max-w-7xl mx-auto w-full px-4 sm:px-8 md:px-16 lg:px-20 pt-4 flex-1 flex flex-col justify-between gap-8">
         <div className="w-full flex justify-end">
-          <NewsTicker className="max-w-md" />
+          <NewsTicker className="max-w-md" alerts={HOME_ALERTS} />
         </div>
 
         <div className="flex-1 flex flex-col justify-center items-start w-full">
