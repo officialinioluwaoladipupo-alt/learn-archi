@@ -6,8 +6,8 @@ export default function CommunityCta() {
       <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
         <div className="w-full md:w-auto">
           <SectionCta
-            href="#"
-            label="JOIN HERE"
+            href="/join"
+            label="JOIN THE COMMUNITY"
             variant="accent"
             size="lg"
             className="w-full md:w-auto text-center"

@@ -61,7 +61,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
 
           {/* Desktop nav */}
           <nav
-            className="hidden md:flex items-center gap-8"
+            className="hidden lg:flex items-center gap-8"
             aria-label="Main navigation"
           >
             {navLinks.map((link) => (
@@ -88,9 +88,20 @@ export default function Header({ variant = "default" }: HeaderProps) {
             ))}
           </nav>
 
+          <Link
+            href="/join"
+            className={`hidden lg:inline-flex items-center justify-center px-4 py-3 text-xs font-bold tracking-widest uppercase transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-archi-pink ${
+              variant === "dark"
+                ? "bg-archi-pink text-archi-black hover:bg-archi-white"
+                : "bg-archi-black text-archi-white hover:bg-archi-white hover:text-archi-black"
+            }`}
+          >
+            Join the Community
+          </Link>
+
           {/* Hamburger button (mobile only) */}
           <button
-            className="md:hidden flex items-center justify-center w-10 h-10 bg-archi-black text-archi-white hover:bg-archi-terracotta transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-archi-pink"
+            className="lg:hidden flex items-center justify-center w-10 h-10 bg-archi-black text-archi-white hover:bg-archi-terracotta transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-archi-pink"
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -107,7 +118,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation"
-        className={`fixed inset-0 z-50 md:hidden flex flex-col bg-archi-black transition-all duration-500 ease-in-out ${
+        className={`fixed inset-0 z-50 lg:hidden flex flex-col bg-archi-black transition-all duration-500 ease-in-out ${
           menuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -156,6 +167,13 @@ export default function Header({ variant = "default" }: HeaderProps) {
               </span>
             </Link>
           ))}
+          <Link
+            href="/join"
+            className="mt-8 inline-flex items-center justify-center bg-archi-pink px-5 py-4 text-center text-sm font-bold uppercase tracking-widest text-archi-black transition-colors hover:bg-archi-white"
+            onClick={() => setMenuOpen(false)}
+          >
+            Join the Community
+          </Link>
         </nav>
 
         {/* Footer strip */}
