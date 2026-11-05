@@ -52,13 +52,13 @@ export default function Header({ variant = "default" }: HeaderProps) {
           {/* Logo */}
           <Link
             href="/"
-            className="bg-archi-black text-archi-white px-4 py-3 font-bold text-sm tracking-widest uppercase flex-shrink-0 hover:opacity-90 transition-opacity"
+            className="flex-shrink-0 transition-opacity hover:opacity-90"
             aria-label="Learn Archi Home"
           >
             <img
-              src="/images/learnarchi-wordmark.svg"
+              src="/images/learnarchi-wordmark.png"
               alt="LearnArchi"
-              className="h-12 w-[76px] object-contain"
+              className="h-[58px] w-[84px] object-contain"
             />
           </Link>
 
@@ -123,14 +123,14 @@ export default function Header({ variant = "default" }: HeaderProps) {
         <div className="flex items-center justify-between px-6 py-6 border-b border-archi-white/10">
           <Link
             href="/"
-            className="bg-archi-black text-archi-white border border-archi-white/20 px-4 py-3 font-bold text-sm tracking-widest uppercase"
+            className="transition-opacity hover:opacity-90"
             aria-label="Learn Archi Home"
             onClick={() => setMenuOpen(false)}
           >
             <img
-              src="/images/learnarchi-wordmark.svg"
+              src="/images/learnarchi-wordmark.png"
               alt="LearnArchi"
-              className="h-12 w-[76px] object-contain"
+              className="h-[58px] w-[84px] object-contain"
             />
           </Link>
           <button
