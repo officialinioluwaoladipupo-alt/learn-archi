@@ -34,8 +34,7 @@ export const courses: Course[] = [
     modules: [
       "Page setup and presentation foundations",
       "Integrating images, text, and color",
-      "Reverse-engineering studio-grade layouts",
-      "Portfolio psychology and communicating design ideas"
+      "Reverse-engineering studio-grade layouts"
     ]
   },
   {
