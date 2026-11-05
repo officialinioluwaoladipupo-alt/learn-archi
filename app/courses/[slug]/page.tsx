@@ -87,23 +87,7 @@ export default function CourseDetailPage({
                 CONTINUE TO PAYMENT
               </button>
             </div>
-          ) : (
-          <div className="flex flex-col sm:flex-row items-start justify-start gap-4 sm:gap-6 mt-8">
-            <a
-              href="#"
-              className="btn-black w-full sm:w-auto text-center"
-            >
-              DOWNLOAD BROCHURE
-            </a>
-            <button
-              id="register-btn"
-              onClick={() => setShowModal(true)}
-              className="btn-black w-full sm:w-auto text-center"
-            >
-              REGISTER HERE
-            </button>
-          </div>
-          )}
+          ) : null}
         </div>
       </main>
       <Footer />
