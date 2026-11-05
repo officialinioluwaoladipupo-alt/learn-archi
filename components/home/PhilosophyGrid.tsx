@@ -3,17 +3,17 @@ export default function PhilosophyGrid() {
     {
       title: "OUR WHY",
       content:
-        "Most architecture portfolios show finished buildings and sanitized renders. Ours shows how you think—from initial site analysis to construction details—so clients and firms trust your process, not just the render.",
+        "LearnArchi exists to intentionally bridge the gap between architectural education and real-world practice by empowering students and young designers to grow intellectually, practically, and personally so they can navigate the profession with clarity and purpose.",
     },
     {
       title: "OUR HOW",
       content:
-        "We bridge the gap between architectural academia and professional practice. Through peer-reviewed project critiques, technical modeling workshops, and studio-grade storytelling, we elevate spatial ideas into built reality.",
+        "We cultivate growth through process-driven, first-principles learning and an accountable, ego-free community that provides beyond-the-classroom exposure and champions service-oriented leadership.",
     },
     {
       title: "WHAT WE DO",
       content:
-        "We provide industry-leading masterclasses in Rhino, Grasshopper, Revit, and Architectural Visualization, paired with live community critiques, portfolio reviews, and studio placement mentorship.",
+        "We currently provide practical software classes, process-focused design reviews, and shared resources, while actively building toward a comprehensive learning ecosystem featuring mentorship pathways and a strong, pan-African network of designers.",
     },
   ];
 
