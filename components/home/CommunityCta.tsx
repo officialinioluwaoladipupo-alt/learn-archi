@@ -15,7 +15,7 @@ export default function CommunityCta() {
         </div>
 
         <div className="w-full md:w-auto text-right">
-          <h2 className="text-d1 font-display font-extrabold text-archi-black uppercase text-right">
+          <h2 className="text-[clamp(2rem,6.5vw,4.75rem)] font-display font-extrabold text-archi-black uppercase text-right">
             <span className="block">JOIN THE</span>
             <span className="block">COMMUNITY</span>
             <span className="block">TODAY</span>

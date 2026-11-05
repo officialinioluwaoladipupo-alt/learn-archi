@@ -52,14 +52,11 @@ export default function Header({ variant = "default" }: HeaderProps) {
           {/* Logo */}
           <Link
             href="/"
-            className="flex-shrink-0 transition-opacity hover:opacity-90"
+            className="flex-shrink-0 bg-archi-black px-3 py-2 font-display text-[18px] font-extrabold leading-[0.9] tracking-[-0.06em] transition-opacity hover:opacity-90"
             aria-label="Learn Archi Home"
           >
-            <img
-              src="/images/learnarchi-wordmark.png"
-              alt="LearnArchi"
-              className="h-[58px] w-[84px] object-contain"
-            />
+            <span className="block text-archi-white">Learn</span>
+            <span className="block text-archi-pink">Archi</span>
           </Link>
 
           {/* Desktop nav */}
@@ -123,15 +120,12 @@ export default function Header({ variant = "default" }: HeaderProps) {
         <div className="flex items-center justify-between px-6 py-6 border-b border-archi-white/10">
           <Link
             href="/"
-            className="transition-opacity hover:opacity-90"
+            className="flex-shrink-0 bg-archi-black px-3 py-2 font-display text-[18px] font-extrabold leading-[0.9] tracking-[-0.06em] transition-opacity hover:opacity-90"
             aria-label="Learn Archi Home"
             onClick={() => setMenuOpen(false)}
           >
-            <img
-              src="/images/learnarchi-wordmark.png"
-              alt="LearnArchi"
-              className="h-[58px] w-[84px] object-contain"
-            />
+            <span className="block text-archi-white">Learn</span>
+            <span className="block text-archi-pink">Archi</span>
           </Link>
           <button
             className="w-10 h-10 flex items-center justify-center bg-archi-white/10 text-archi-white hover:bg-archi-terracotta transition-colors duration-200 focus:outline-none"

@@ -22,7 +22,7 @@ export default function HeroSection() {
         </div>
 
         <div className="flex-1 flex flex-col justify-center items-start w-full">
-          <h1 className="text-d1 font-display font-extrabold text-archi-black uppercase leading-[0.85] tracking-architectural max-w-full">
+          <h1 className="w-full min-w-0 max-w-full text-[clamp(2rem,6.5vw,4.75rem)] font-display font-extrabold text-archi-black uppercase leading-[0.85] tracking-architectural">
             <span className="block leading-none">WORLD LARGEST</span>
             <span className="block leading-none">ARCHITECTURE</span>
             <span className="block leading-none text-archi-white">COMMUNITY</span>

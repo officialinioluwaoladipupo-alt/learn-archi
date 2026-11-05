@@ -24,7 +24,7 @@ export default function CourseDetailPage({
         <Header variant="default" />
 
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-8 md:px-16 lg:px-20 py-8 sm:py-12">
-          <h1 className="text-d2 font-display font-black text-archi-black uppercase tracking-tighter w-full text-center md:text-left mb-8 sm:mb-12 border-b-2 border-archi-black pb-4 sm:pb-6">
+          <h1 className="w-full min-w-0 text-[clamp(2rem,7vw,5rem)] font-display font-black text-archi-black uppercase tracking-tighter break-words text-center md:text-left mb-8 sm:mb-12 border-b-2 border-archi-black pb-4 sm:pb-6">
             {course.title}
           </h1>
 
