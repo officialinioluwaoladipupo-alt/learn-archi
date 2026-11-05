@@ -1,124 +1,10 @@
 "use client";
 
 import { notFound } from "next/navigation";
-import { use, useState } from "react";
+import { use } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { getCourseBySlug } from "@/lib/courses-data";
-
-function PaymentModal({ onClose }: { onClose: () => void }) {
-  const [loaded, setLoaded] = useState(false);
-
-  return (
-    <div
-      id="payment-modal-overlay"
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      style={{ backgroundColor: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)" }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <div
-        id="payment-modal"
-        className="relative bg-white shadow-2xl flex flex-col overflow-hidden"
-        style={{
-          width: "min(90vw, 680px)",
-          height: "min(90vh, 700px)",
-        }}
-      >
-        {/* Modal Header */}
-        <div
-          className="flex items-center justify-between px-6 py-4 border-b-2 border-archi-black shrink-0"
-          style={{ background: "#1a1a1a" }}
-        >
-          <span
-            className="font-display font-black uppercase tracking-tight text-white"
-            style={{ fontSize: "1rem", letterSpacing: "0.08em" }}
-          >
-            Complete Your Registration
-          </span>
-          <button
-            id="close-payment-modal"
-            onClick={onClose}
-            aria-label="Close payment modal"
-            className="text-white hover:text-archi-pink transition-colors"
-            style={{ fontSize: "1.5rem", lineHeight: 1, background: "none", border: "none", cursor: "pointer" }}
-          >
-            ✕
-          </button>
-        </div>
-
-        {/* Loader overlay — shown until iframe fires onLoad */}
-        {!loaded && (
-          <div
-            id="payment-loader"
-            className="absolute inset-0 flex flex-col items-center justify-center gap-6"
-            style={{ top: "57px", background: "#fdf0f5", zIndex: 10 }}
-          >
-            <p
-              className="font-display font-bold uppercase text-archi-black"
-              style={{ fontSize: "0.65rem", letterSpacing: "0.22em" }}
-            >
-              Loading Payment Page
-            </p>
-
-            {/* Bouncing dots — 3 dots with staggered delays */}
-            <div className="flex items-end gap-3">
-              {[
-                { color: "#1a1a1a", delay: "0s" },
-                { color: "#A84B42", delay: "0.2s" },
-                { color: "#F4BAD3", delay: "0.4s" },
-              ].map((dot, i) => (
-                <div
-                  key={i}
-                  style={{
-                    width: 14,
-                    height: 14,
-                    borderRadius: "50%",
-                    background: dot.color,
-                    animationName: "archi-bounce",
-                    animationDuration: "0.9s",
-                    animationTimingFunction: "cubic-bezier(0.45, 0, 0.55, 1)",
-                    animationDelay: dot.delay,
-                    animationIterationCount: "infinite",
-                    animationDirection: "alternate",
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Keyframe styles injected inline */}
-        <style>{`
-          @keyframes archi-bounce {
-            from { transform: translateY(0px);  opacity: 1;   }
-            to   { transform: translateY(-18px); opacity: 0.5; }
-          }
-        `}</style>
-
-        {/* iframe */}
-        <div className="flex-1 relative">
-          <iframe
-            id="paystack-payment-iframe"
-            src="https://paystack.shop/pay/larhinocourse"
-            title="Register & Pay"
-            allow="payment"
-            onLoad={() => setLoaded(true)}
-            style={{
-              width: "100%",
-              height: "100%",
-              border: "none",
-              display: "block",
-              opacity: loaded ? 1 : 0,
-              transition: "opacity 0.4s ease",
-            }}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function CourseDetailPage({
   params,
@@ -127,7 +13,6 @@ export default function CourseDetailPage({
 }) {
   const { slug } = use(params);
   const course = getCourseBySlug(slug);
-  const [showModal, setShowModal] = useState(false);
 
   if (!course) {
     notFound();
@@ -171,6 +56,38 @@ export default function CourseDetailPage({
             </div>
           </div>
 
+          {course.status === "closed" ? (
+            <div className="mt-8 border-2 border-archi-black bg-archi-black px-6 py-4 text-center font-display font-bold uppercase tracking-wide text-archi-white sm:inline-block">
+              Registration Closed
+            </div>
+          ) : course.paymentOptions?.length ? (
+            <div className="mt-8 flex w-full flex-col items-start gap-4 sm:w-auto sm:flex-row sm:items-end sm:gap-6">
+              <label className="flex w-full flex-col gap-2 font-display text-meta font-bold uppercase tracking-wide text-archi-black sm:w-80">
+                Payment Option
+                <select
+                  id="payment-option"
+                  defaultValue={course.paymentOptions[0].url}
+                  className="min-h-12 border-2 border-archi-black bg-archi-white px-4 py-3 text-body font-body font-medium normal-case tracking-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-archi-black"
+                >
+                  {course.paymentOptions.map((option) => (
+                    <option key={option.url} value={option.url}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                type="button"
+                className="btn-black w-full text-center sm:w-auto"
+                onClick={() => {
+                  const select = document.getElementById("payment-option") as HTMLSelectElement | null;
+                  if (select) window.open(select.value, "_blank", "noopener,noreferrer");
+                }}
+              >
+                CONTINUE TO PAYMENT
+              </button>
+            </div>
+          ) : (
           <div className="flex flex-col sm:flex-row items-start justify-start gap-4 sm:gap-6 mt-8">
             <a
               href="#"
@@ -186,11 +103,11 @@ export default function CourseDetailPage({
               REGISTER HERE
             </button>
           </div>
+          )}
         </div>
       </main>
       <Footer />
 
-      {showModal && <PaymentModal onClose={() => setShowModal(false)} />}
     </>
   );
 }

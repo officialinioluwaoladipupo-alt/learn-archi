@@ -7,6 +7,7 @@ interface CourseCardProps {
   tutor: string;
   title: string;
   thumbnail?: string;
+  status: "open" | "closed";
 }
 
 export default function CourseCard({
@@ -15,6 +16,7 @@ export default function CourseCard({
   tutor,
   title,
   thumbnail,
+  status,
 }: CourseCardProps) {
   return (
     <Link href={`/courses/${slug}`} className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-archi-black focus-visible:ring-offset-2">
@@ -31,6 +33,12 @@ export default function CourseCard({
         <h3 className="text-h3 font-display font-bold text-archi-black mt-2 mb-6 uppercase">
           {title}
         </h3>
+
+        {status === "closed" && (
+          <p className="mb-4 inline-block bg-archi-black px-3 py-1 text-meta font-bold uppercase tracking-wide text-archi-white">
+            Course Closed
+          </p>
+        )}
 
         <div className="w-full h-64 bg-archi-grey relative overflow-hidden">
           {thumbnail && (

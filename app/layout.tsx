@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   title: "Learn Archi - World's Largest Architecture Community",
   description:
     "Premium online education platform for architecture students, studio professionals, and spatial designers.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({

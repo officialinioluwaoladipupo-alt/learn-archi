@@ -55,10 +55,11 @@ export default function Header({ variant = "default" }: HeaderProps) {
             className="bg-archi-black text-archi-white px-4 py-3 font-bold text-sm tracking-widest uppercase flex-shrink-0 hover:opacity-90 transition-opacity"
             aria-label="Learn Archi Home"
           >
-            <div className="leading-tight">
-              <div>Learn</div>
-              <div className="text-archi-pink">Archi</div>
-            </div>
+            <img
+              src="/images/learnarchi-wordmark.svg"
+              alt="LearnArchi"
+              className="h-12 w-[76px] object-contain"
+            />
           </Link>
 
           {/* Desktop nav */}
@@ -126,10 +127,11 @@ export default function Header({ variant = "default" }: HeaderProps) {
             aria-label="Learn Archi Home"
             onClick={() => setMenuOpen(false)}
           >
-            <div className="leading-tight">
-              <div>Learn</div>
-              <div className="text-archi-pink">Archi</div>
-            </div>
+            <img
+              src="/images/learnarchi-wordmark.svg"
+              alt="LearnArchi"
+              className="h-12 w-[76px] object-contain"
+            />
           </Link>
           <button
             className="w-10 h-10 flex items-center justify-center bg-archi-white/10 text-archi-white hover:bg-archi-terracotta transition-colors duration-200 focus:outline-none"

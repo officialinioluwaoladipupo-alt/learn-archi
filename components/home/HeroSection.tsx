@@ -5,9 +5,9 @@ const HOME_ALERTS: NewsItem[] = [
   {
     id: "01",
     tag: "NEW COURSE",
-    text: "Learning Rhino: A Complete Curriculum is now live! From First Curve to Complex Tower Geometry.",
-    linkText: "View Course",
-    href: "/courses/learning-rhino",
+    text: "The LearnArchi InDesign Course is a nine-class journey to stronger architectural presentations.",
+    linkText: "Explore the Course",
+    href: "/courses/indesign-presentation",
   },
 ];
 
